@@ -1,0 +1,31 @@
+{% extends "_layouts/default.njk" %}
+
+{% block body %}
+  <div class="content">
+    <strong>Olá, {{ user.name }}</strong>
+    <p>Veja sua agenda</p>
+    <form action="" method="post" >
+      <input type="text" class="flatpickr" placeholder="Ver uma data" />
+      <div ></div>
+    </form>
+
+    <ul class="providers" id="hours">
+    </ul>
+
+    <a class="logout" href="/app/logout">Sair</a>
+
+  </div>
+  <script type="text/javascript">
+    flatpickr('.flatpickr', {
+      dateFormat: 'd/m/Y',
+      onChange: function(date){
+        fetch(`/app/appointments/appointments/{{ user.id }}?date=${date[0].getTime()}`).then(function(response){
+          response.text().then(function(html){
+            document.getElementById('hours').innerHTML = html
+          })
+        })
+      }
+    })
+  </script>
+{% endblock %}
+

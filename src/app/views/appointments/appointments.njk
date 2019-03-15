@@ -1,0 +1,9 @@
+{% for appointment in agendamento %}
+  <li class="provider">
+    <div>
+      <img src="/files/{{ appointment.usuario.avatar }}"/>
+      <strong>{{ appointment.usuario.name }}</strong>
+      <strong>{{ appointment.data }}</strong>
+    </div>
+  </li>
+{% endfor %}
